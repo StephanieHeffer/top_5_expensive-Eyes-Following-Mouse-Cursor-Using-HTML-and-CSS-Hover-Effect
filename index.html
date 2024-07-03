@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Eyes Following Mouse Cursor Using HTML and CSS | Hover Effect</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: rgb(12, 90, 100);
+    }
+
+    .face {
+      position: relative;
+      width: 300px;
+      height: 300px;
+      background: darkgoldenrod;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: 0.5s;
+    }
+
+    .face::before {
+      content: '';
+      top: 180px;
+      position: absolute;
+      width: 150px;
+      height: 70px;
+      background: maroon;
+      border-bottom-left-radius: 70px;
+      border-bottom-right-radius: 70px;
+      transition: 0.5s;
+    }
+
+    .face:hover {
+      background: red;
+      transition: 0.5s;
+    }
+
+    .face:hover::before {
+      content: '';
+      top: 210px;
+      position: absolute;
+      width: 150px;
+      height: 20px;
+      background: maroon;
+      border-bottom-left-radius: 0px;
+      border-bottom-right-radius: 0px;
+    }
+
+    .eyes {
+      position: relative;
+      top: -40px;
+      display: flex;
+    }
+
+    .eyes .eye {
+      position: relative;
+      width: 80px;
+      height: 80px;
+      display: block;
+      background: white;
+      border-radius: 50%;
+      margin: 0 15px;
+    }
+
+    .eyes .eye::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 25px;
+      transform: translate(-50%, -50%);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: black;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="face">
+    <div class="eyes">
+      <div class="eye"></div>
+      <div class="eye"></div>
+    </div>
+  </div>
+  <script>
+    document.querySelector('body').addEventListener('mousemove', eyeball);
+    function eyeball() {
+      var eye = document.querySelectorAll('.eye');
+      eye.forEach(function (eye) {
+        let x = (eye.getBoundingClientRect().left) + (eye.clientWidth / 2);
+        let y = (eye.getBoundingClientRect().top) + (eye.clientHeight / 2);
+
+        let radian = Math.atan2(event.pageX - x, event.pageY - y);
+        let rot = (radian * (180 / Math.PI) * -1) + 270;
+
+        eye.style.transform = "rotate(" + rot + "deg)";
+      })
+    }
+  </script>
+</body>
+
+</html>
